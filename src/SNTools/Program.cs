@@ -18,8 +18,7 @@ internal static class Program
     {
         var versionRaw = typeof(Program).Assembly.GetName().Version!;
         if (versionRaw != null)
-            Version = new(versionRaw.Major, versionRaw.Minor, versionRaw.Build,
-                          [(versionRaw.Revision > 0) ? "" : ("ci." + versionRaw.Revision.ToString())]);
+            Version = new(versionRaw.Major, versionRaw.Minor, versionRaw.Build, (versionRaw.Revision > 0) ? ["ci." + versionRaw.Revision.ToString()] : null);
 
         ConsoleHandler.Init($"SNTools v{Version}");
 
