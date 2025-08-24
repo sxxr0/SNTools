@@ -2,7 +2,6 @@
 using Gameloop.Vdf.Linq;
 using Microsoft.Win32;
 using Semver;
-using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
@@ -10,16 +9,17 @@ namespace SNTools;
 
 internal static class Program
 {
-    public static SemVersion Version { get; private set; } = new SemVersion(0);
+    public static SemVersion Version { get; private set; } = new(0);
     public static ToolsLogger MainLogger { get; } = new("SNTools", Color.Red);
     public static string GameDir { get; private set; } = null!;
     public static string GameExePath { get; private set; } = null!;
 
     private static void Main()
     {
-        var versionRaw = FileVersionInfo.GetVersionInfo(Environment.ProcessPath!).ProductVersion;
-        if (SemVersion.TryParse(versionRaw, SemVersionStyles.Any, out var version))
-            Version = version.WithoutMetadata();
+        var versionRaw = typeof(Program).Assembly.GetName().Version!;
+        if (versionRaw != null)
+            Version = new(versionRaw.Major, versionRaw.Minor, versionRaw.Build,
+                          [(versionRaw.Revision > 0) ? "" : ("ci." + versionRaw.Revision.ToString())]);
 
         ConsoleHandler.Init($"SNTools v{Version}");
 

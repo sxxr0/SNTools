@@ -10,7 +10,5 @@
         <LangVersion>latest</LangVersion>
         <Version Condition="'$(CI)' == ''">$(GlobalVersion)</Version>
         <Version Condition="'$(CI)' != ''">$(GlobalVersion).$(CI)</Version>
-        <ProductVersion Condition="'$(CI)' == ''">$(GlobalVersion)</ProductVersion>
-        <ProductVersion Condition="'$(CI)' != ''">$(GlobalVersion)-ci.$(CI)</ProductVersion>
     </PropertyGroup>
 </Project>
