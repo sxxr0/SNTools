@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0-windows</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <ApplicationManifest>Resources/app.manifest</ApplicationManifest>
+        <ApplicationIcon>Resources/SNTools.ico</ApplicationIcon>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+        <PublishSingleFile>true</PublishSingleFile>
+        <SelfContained>true</SelfContained>
+        <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+        <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+        <PublishDir>$(SolutionDir)bin</PublishDir>
+        <DebugType>embedded</DebugType>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Gameloop.Vdf" Version="0.6.2" />
+        <PackageReference Include="HarmonyX" Version="2.10.2" />
+        <PackageReference Include="Il2CppInterop.HarmonySupport" Version="1.5.0-ci.641" />
+        <PackageReference Include="Il2CppInterop.Runtime" Version="1.5.0-ci.641" />
+        <PackageReference Include="MonoMod.RuntimeDetour" Version="22.7.31.1" />
+        <PackageReference Include="Semver" Version="3.0.0" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Content Include="NativeLibs\**\*.*">
+            <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Visible>false</Visible>
+        </Content>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <Reference Include="Libs\Il2CppInteropAssemblies\*.dll" />
+        <Reference Include="Libs\*.dll" />
+    </ItemGroup>
+
+</Project>

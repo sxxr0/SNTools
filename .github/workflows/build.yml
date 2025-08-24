@@ -1,0 +1,31 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore Dependencies
+        run: dotnet restore
+        
+      - name: Build
+        run: dotnet publish --no-restore -p:CI="${{ github.run_number }}"
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SNTools
+          path: bin/

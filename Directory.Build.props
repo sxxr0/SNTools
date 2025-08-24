@@ -1,0 +1,16 @@
+<Project>
+    <PropertyGroup>
+        <GlobalVersion>1.0.0</GlobalVersion> <!-- Must always follow the format 'x.x.x' -->
+        <CI></CI> <!-- Can be overwritten by workflows -->
+
+        <Company>sxxr0</Company>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <Version Condition="'$(CI)' == ''">$(GlobalVersion)</Version>
+        <Version Condition="'$(CI)' != ''">$(GlobalVersion).$(CI)</Version>
+        <ProductVersion Condition="'$(CI)' == ''">$(GlobalVersion)</ProductVersion>
+        <ProductVersion Condition="'$(CI)' != ''">$(GlobalVersion)-ci.$(CI)</ProductVersion>
+    </PropertyGroup>
+</Project>
