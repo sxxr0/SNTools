@@ -1,8 +1,7 @@
 ﻿using AppControllers;
 using HarmonyLib;
 using Microsoft.Extensions.Logging;
-using System.Reflection;
-using UnityExplorer;
+using SNTools.UI;
 
 namespace SNTools;
 
@@ -22,15 +21,21 @@ internal static class GameModController
 
         Harmony = new("SNTools.GameModController");
 
+        Harmony.Patch(AccessTools.Method(typeof(AppController), "Start"), new(((Action)OnStart).Method));
         Harmony.Patch(AccessTools.Method(typeof(AppController), "Update"), new(((Action)OnUpdate).Method));
 
-        Assembly.Load("UnityEngine.AssetBundleModule");
-        ExplorerStandalone.CreateInstance(OnUnityExplorerLog);
+        //Assembly.Load("UnityEngine.AssetBundleModule");
+        //ExplorerStandalone.CreateInstance(OnUnityExplorerLog);
+    }
+
+    private static void OnStart()
+    {
+        ToolsUIController.InitGameOverlay();
     }
 
     private static void OnUpdate()
     {
-
+        ToolsUIController.Update();
     }
 
     private static void OnUnityExplorerLog(string log, UnityEngine.LogType type)

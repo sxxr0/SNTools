@@ -15,6 +15,7 @@ internal static class Program
     public static string GameDir { get; private set; } = null!;
     public static string GameExePath { get; private set; } = null!;
 
+    [STAThread]
     private static void Main()
     {
         var versionRaw = typeof(Program).Assembly.GetName().Version!;

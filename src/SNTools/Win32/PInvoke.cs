@@ -8,7 +8,7 @@ internal static unsafe class PInvoke
     public const uint StdOutputHandle = 4294967285;
     public const uint StdErrorHandle = 4294967284;
 
-    [DllImport("ntdll")]
+    [DllImport("ntdll.dll")]
     public static extern void RtlCopyUnicodeString(UNICODE_STRING* destination, UNICODE_STRING* source);
 
     [DllImport("kernel32.dll")]
@@ -32,4 +32,10 @@ internal static unsafe class PInvoke
     [DllImport("kernel32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool SetConsoleMode(nint hConsoleHandle, uint dwMode);
+
+    [DllImport("user32.dll")]
+    public static extern bool GetClientRect(nint hWnd, out RECT lpRect);
+
+    [DllImport("user32.dll")]
+    public static extern bool ClientToScreen(nint hWnd, ref POINT lpPoint);
 }
