@@ -3,6 +3,7 @@ using Il2CppInterop.HarmonySupport;
 using Il2CppInterop.Runtime.Startup;
 using SNTools.Il2CppInteropHelpers;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace SNTools;

@@ -3,6 +3,7 @@ using Gameloop.Vdf.Linq;
 using Microsoft.Win32;
 using Semver;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace SNTools;

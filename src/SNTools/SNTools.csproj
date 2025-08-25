@@ -17,6 +17,7 @@
         <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
         <PublishDir>$(SolutionDir)bin</PublishDir>
         <DebugType>embedded</DebugType>
+        <UseWPF>true</UseWPF>
     </PropertyGroup>
     
     <ItemGroup>
