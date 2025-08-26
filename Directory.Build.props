@@ -8,6 +8,7 @@
     
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
+        <EnableWindowsTargeting>true</EnableWindowsTargeting>
         <Version Condition="'$(CI)' == ''">$(GlobalVersion)</Version>
         <Version Condition="'$(CI)' != ''">$(GlobalVersion).$(CI)</Version>
     </PropertyGroup>
