@@ -1,5 +1,6 @@
 ﻿using Gameloop.Vdf;
 using Gameloop.Vdf.Linq;
+using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using Semver;
 using System.Drawing;
@@ -43,6 +44,12 @@ internal static class Program
     {
         ConsoleHandler.NullHandles();
 
+        if (!LoadSteamAPI())
+        {
+            MainLogger.LogInformation("Failed to load the SteamAPI. Ensure Steam is running in the background.");
+            return;
+        }
+
         var unityPlayerPath = Path.Combine(GameDir, "UnityPlayer.dll");
 
         if (!NativeLibrary.TryLoad(unityPlayerPath, out _))
@@ -55,9 +62,15 @@ internal static class Program
 
         Il2CppHijack.ReadyToMod += GameModController.Init;
 
+        UnityPlayer.UnityMain();
+    }
+
+    private static bool LoadSteamAPI()
+    {
         Environment.SetEnvironmentVariable("SteamAppId", "859570");
 
-        UnityPlayer.UnityMain();
+        var steamLibPath = Path.Combine(GameDir, "Secret Neighbour_Data", "Plugins", "x86_64", "steam_api64.dll");
+        return NativeLibrary.TryLoad(steamLibPath, out _) && SteamAPI_Init();
     }
 
     private static string? FindGameDir()
@@ -93,4 +106,7 @@ internal static class Program
 
         return Directory.Exists(gameDir) ? gameDir : null;
     }
+
+    [DllImport("steam_api64.dll")]
+    private static extern bool SteamAPI_Init();
 }
