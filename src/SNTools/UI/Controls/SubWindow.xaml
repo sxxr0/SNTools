@@ -6,18 +6,25 @@
              xmlns:local="clr-namespace:SNTools.UI.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000">
-    <Border CornerRadius="15" Background="#EE121212">
+    <Grid>
+        <Border CornerRadius="15" Background="#EE151520">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0" BlurRadius="10" Opacity="0.6"/>
+            </Border.Effect>
+        </Border>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Border Background="#080808" CornerRadius="15 15 0 0" Name="Header" MouseLeftButtonDown="HeaderMouseLeftDown" MouseLeftButtonUp="HeaderMouseLeftUp" MouseMove="HeaderMouseMove">
+            <Border Background="#101015" CornerRadius="15 15 0 0" Name="Header" MouseLeftButtonDown="HeaderMouseLeftDown" MouseLeftButtonUp="HeaderMouseLeftUp" MouseMove="HeaderMouseMove">
                 <Grid>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Foreground="LightGray">Window Title</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Foreground="LightGray" Text="{Binding Title, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
                 </Grid>
             </Border>
+
+            <ContentPresenter Grid.Row="1" Content="{Binding WindowContent, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
         </Grid>
-    </Border>
+    </Grid>
 </UserControl>

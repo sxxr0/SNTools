@@ -24,10 +24,17 @@ internal static class ToolsUIController
         if (_gameWindowHandle == 0)
             throw new InvalidOperationException("Cannot initialize overlay before the game window");
 
-        _ = new App();
         _overlayWindow = new OverlayWindow();
+        _overlayWindow.Closed += OnOverlayClosed;
         _overlayWindow.Show();
         UpdateWindowPosition();
+    }
+
+    private static void OnOverlayClosed(object? sender, EventArgs e)
+    {
+        _overlayWindow = null;
+
+        UnityEngine.Application.Quit();
     }
 
     public static void Update()

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SNTools.UI"
         xmlns:custom="clr-namespace:SNTools.UI.Controls"
+        xmlns:windows="clr-namespace:SNTools.UI.Windows"
         mc:Ignorable="d"
         Title="SNTools Overlay"
         Height="1080" Width="1920"
@@ -16,7 +17,7 @@
         ShowActivated="False">
     <Grid>
         <Canvas>
-            <custom:SubWindow Width="1000" Height="600"/>
+            <windows:MainWindow/>
         </Canvas>
     </Grid>
 </Window>
