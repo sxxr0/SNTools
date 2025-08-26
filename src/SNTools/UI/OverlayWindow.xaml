@@ -4,23 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SNTools.UI"
+        xmlns:custom="clr-namespace:SNTools.UI.Controls"
         mc:Ignorable="d"
         Title="SNTools Overlay"
-        Height="450" Width="800"
+        Height="1080" Width="1920"
         Topmost="True"
         WindowStyle="None"
         ResizeMode="NoResize"
         AllowsTransparency="True"
         Background="Transparent"
         ShowActivated="False">
-    <Border BorderBrush="Red" BorderThickness="2">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button Width="100" Height="40">Hello</Button>
-            <Button Width="100" Height="40" Grid.Column="1">There</Button>
-        </Grid>
-    </Border>
+    <Grid>
+        <Canvas>
+            <custom:SubWindow Width="1000" Height="600"/>
+        </Canvas>
+    </Grid>
 </Window>

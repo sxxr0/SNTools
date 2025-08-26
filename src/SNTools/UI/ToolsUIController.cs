@@ -27,7 +27,6 @@ internal static class ToolsUIController
         _ = new App();
         _overlayWindow = new OverlayWindow();
         _overlayWindow.Show();
-
         UpdateWindowPosition();
     }
 
