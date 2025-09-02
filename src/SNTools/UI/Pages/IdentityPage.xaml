@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="SNTools.UI.Pages.IdentityPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SNTools.UI.Pages"
+             xmlns:vm="clr-namespace:SNTools.UI.Pages.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="630" d:DesignWidth="460">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UI/MainStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <vm:IdentityPageViewModel />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <ToggleButton Height="40" Margin="5" IsChecked="{Binding UnlockSkins, Mode=TwoWay}">Unlock all Skins</ToggleButton>
+            <ToggleButton Height="40" Margin="5" IsChecked="{Binding UnlockEmotes, Mode=TwoWay}">Unlock all Emotes</ToggleButton>
+        </StackPanel>
+    </Grid>
+</UserControl>

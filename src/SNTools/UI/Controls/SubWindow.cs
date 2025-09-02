@@ -4,28 +4,18 @@ using System.Windows.Input;
 
 namespace SNTools.UI.Controls;
 
-/// <summary>
-/// Interaction logic for SubWindow.xaml
-/// </summary>
-public partial class SubWindow : UserControl
+public class SubWindow : ContentControl
 {
     private bool _isDragging;
-
     private Point _clickPosition;
 
-    public static readonly DependencyProperty TitleProperty =
-        DependencyProperty.Register(
-            nameof(Title),
-            typeof(string),
-            typeof(SubWindow),
-            new PropertyMetadata("Window Title"));
+    static SubWindow()
+    {
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(SubWindow), new FrameworkPropertyMetadata(typeof(SubWindow)));
+    }
 
-    public static readonly DependencyProperty WindowContentProperty =
-        DependencyProperty.Register(
-            nameof(WindowContent),
-            typeof(object),
-            typeof(SubWindow),
-            new PropertyMetadata(null));
+    public static readonly DependencyProperty TitleProperty =
+        DependencyProperty.Register("Title", typeof(string), typeof(SubWindow), new PropertyMetadata(string.Empty));
 
     public string Title
     {
@@ -33,15 +23,13 @@ public partial class SubWindow : UserControl
         set => SetValue(TitleProperty, value);
     }
 
-    public object WindowContent
+    public override void OnApplyTemplate()
     {
-        get => GetValue(WindowContentProperty);
-        set => SetValue(WindowContentProperty, value);
-    }
-
-    public SubWindow()
-    {
-        InitializeComponent();
+        base.OnApplyTemplate();
+        var header = (Border)GetTemplateChild("Header");
+        header.MouseLeftButtonDown += HeaderMouseLeftDown;
+        header.MouseLeftButtonUp += HeaderMouseLeftUp;
+        header.MouseMove += HeaderMouseMove;
     }
 
     private void HeaderMouseLeftDown(object sender, MouseButtonEventArgs args)

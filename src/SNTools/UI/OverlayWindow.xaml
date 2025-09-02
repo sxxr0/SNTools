@@ -17,7 +17,7 @@
         ShowActivated="False">
     <Grid>
         <Canvas>
-            <windows:MainWindow/>
+            <windows:MainWindow x:Name="MainWindow"/>
         </Canvas>
     </Grid>
 </Window>

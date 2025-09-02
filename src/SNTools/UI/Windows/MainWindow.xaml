@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:SNTools.UI.Windows"
              xmlns:custom="clr-namespace:SNTools.UI.Controls"
+             xmlns:vm="clr-namespace:SNTools.UI.Windows.ViewModels"
              mc:Ignorable="d" 
-             Width="1000" Height="700">
+             Width="700" Height="700">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,12 +14,17 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <custom:SubWindow Title="SN Tools">
-        <custom:SubWindow.WindowContent>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Width="200" Height="40" Margin="10">Unlock Skins</Button>
-                <CheckBox Width="50" Height="20" Margin="10">Hi</CheckBox>
-            </StackPanel>
-        </custom:SubWindow.WindowContent>
+    <UserControl.DataContext>
+        <vm:MainWindowViewModel />
+    </UserControl.DataContext>
+    <custom:SubWindow Title="SN Tools" Visibility="Visible">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ListBox ItemsSource="{Binding ActiveCategories}" x:Name="PageList" DisplayMemberPath="Name" Background="#2000" SelectedIndex="0"/>
+            <ContentControl Grid.Column="1" Content="{Binding SelectedItem.Content, ElementName=PageList}" Margin="20"/>
+        </Grid>
     </custom:SubWindow>
 </UserControl>

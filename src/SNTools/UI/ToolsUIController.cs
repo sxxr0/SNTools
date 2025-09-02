@@ -1,10 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using HarmonyLib;
+using SNTools.Game;
 using SNTools.Win32;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Input;
+using UnityEngine;
 
 namespace SNTools.UI;
 
+[HarmonyPatch]
 internal static class ToolsUIController
 {
     private static RECT _lastGameWindowRect;
@@ -26,20 +30,58 @@ internal static class ToolsUIController
 
         _overlayWindow = new OverlayWindow();
         _overlayWindow.Closed += OnOverlayClosed;
+        _overlayWindow.KeyDown += OnOverlayKeyDown;
+
+        _overlayWindow.MainWindow.Visibility = Visibility.Hidden;
         _overlayWindow.Show();
+
         UpdateWindowPosition();
+    }
+
+    private static void OnOverlayKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Insert)
+        {
+            e.Handled = true;
+            ToggleMainWindow();
+            return;
+        }
     }
 
     private static void OnOverlayClosed(object? sender, EventArgs e)
     {
         _overlayWindow = null;
-
         UnityEngine.Application.Quit();
     }
 
     public static void Update()
     {
+        if (_overlayWindow == null)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.Insert))
+            ToggleMainWindow();
+
         UpdateWindowPosition();
+    }
+
+    public static void ToggleMainWindow()
+    {
+        if (_overlayWindow == null)
+            return;
+
+        if (_overlayWindow.MainWindow.Visibility == Visibility.Hidden)
+        {
+            _overlayWindow.MainWindow.Visibility = Visibility.Visible;
+            _overlayWindow.Activate();
+            UnityCursorOverride.AlwaysVisible = true;
+        }
+        else
+        {
+            _overlayWindow.MainWindow.Visibility = Visibility.Hidden;
+            PInvoke.SetForegroundWindow(_gameWindowHandle);
+            UnityCursorOverride.AlwaysVisible = false;
+        }
     }
 
     private static void UpdateWindowPosition()
@@ -72,8 +114,6 @@ internal static class ToolsUIController
             return;
 
         _lastGameWindowRect = rect;
-
-        Program.MainLogger.LogInformation("Updating window pos");
 
         var hwndSource = PresentationSource.FromVisual(_overlayWindow);
         if (hwndSource.CompositionTarget == null)

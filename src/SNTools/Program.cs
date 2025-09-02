@@ -3,6 +3,7 @@ using Gameloop.Vdf.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using Semver;
+using SNTools.Game;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -15,6 +16,7 @@ internal static class Program
     public static ToolsLogger MainLogger { get; } = new("SNTools", Color.Red);
     public static string GameDir { get; private set; } = null!;
     public static string GameExePath { get; private set; } = null!;
+    public static string AppDataDir { get; } = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "SNTools");
 
     [STAThread]
     private static void Main()

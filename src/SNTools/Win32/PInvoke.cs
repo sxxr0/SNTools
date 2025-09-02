@@ -38,4 +38,7 @@ internal static unsafe class PInvoke
 
     [DllImport("user32.dll")]
     public static extern bool ClientToScreen(nint hWnd, ref POINT lpPoint);
+
+    [DllImport("user32.dll")]
+    public static extern bool SetForegroundWindow(nint hWnd);
 }

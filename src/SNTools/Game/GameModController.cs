@@ -2,15 +2,21 @@
 using HarmonyLib;
 using Microsoft.Extensions.Logging;
 using SNTools.UI;
+using System.Reflection;
+using UnityExplorer;
 
-namespace SNTools;
+namespace SNTools.Game;
 
-internal static class GameModController
+[HarmonyPatch]
+public static class GameModController
 {
     private static bool _inited;
     private static readonly ToolsLogger _ueLogger = new("UnityExplorer", System.Drawing.Color.Purple);
+    private static GameMode _currentGameMode;
 
     public static Harmony Harmony { get; private set; } = null!;
+
+    public static event Action<GameMode>? GameModeChanged;
 
     public static void Init()
     {
@@ -19,23 +25,38 @@ internal static class GameModController
 
         _inited = true;
 
-        Harmony = new("SNTools.GameModController");
+        Harmony = new("SNTools");
 
-        Harmony.Patch(AccessTools.Method(typeof(AppController), "Start"), new(((Action)OnStart).Method));
-        Harmony.Patch(AccessTools.Method(typeof(AppController), "Update"), new(((Action)OnUpdate).Method));
+        Harmony.PatchAll(typeof(GameModController).Assembly);
 
-        //Assembly.Load("UnityEngine.AssetBundleModule");
-        //ExplorerStandalone.CreateInstance(OnUnityExplorerLog);
+        Assembly.Load("UnityEngine.AssetBundleModule");
+        ExplorerStandalone.CreateInstance(OnUnityExplorerLog);
     }
 
+    [HarmonyPatch(typeof(AppController), "Start")]
+    [HarmonyPrefix]
     private static void OnStart()
     {
         ToolsUIController.InitGameOverlay();
     }
 
+    [HarmonyPatch(typeof(AppController), "Update")]
+    [HarmonyPrefix]
     private static void OnUpdate()
     {
         ToolsUIController.Update();
+    }
+
+    [HarmonyPatch(typeof(GameModeController), GameModeControllerAPI.SetGameModeMethod)]
+    [HarmonyPostfix]
+    private static void OnSetGameMode([HarmonyArgument(0)] GameMode gameMode)
+    {
+        if (gameMode == _currentGameMode)
+            return;
+
+        _currentGameMode = gameMode;
+
+        GameModeChanged?.Invoke(gameMode);
     }
 
     private static void OnUnityExplorerLog(string log, UnityEngine.LogType type)
