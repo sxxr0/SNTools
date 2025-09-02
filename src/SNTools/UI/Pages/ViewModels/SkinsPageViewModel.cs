@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using SNTools.Game.Features.Skins;
+using SNTools.Game.Tools.Skins;
 
 namespace SNTools.UI.Pages.ViewModels;
 

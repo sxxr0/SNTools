@@ -1,7 +1,7 @@
 using GameModes.Shared.Models.Customization;
 using HarmonyLib;
 
-namespace SNTools.Game.Features.Skins;
+namespace SNTools.Game.Tools.Skins;
 
 [HarmonyPatch]
 internal static class SkinsUnlocker

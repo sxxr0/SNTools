@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SNTools.Game.Features.Identity;
+using SNTools.Game.Tools.Identity;
 
 namespace SNTools.UI.Pages.ViewModels;
 

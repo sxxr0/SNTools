@@ -1,6 +1,6 @@
 ﻿using GameModes;
 
-namespace SNTools.Game.Features.Identity;
+namespace SNTools.Game.Tools.Identity;
 
 internal static class NameChanger
 {

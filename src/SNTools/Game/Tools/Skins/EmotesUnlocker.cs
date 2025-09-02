@@ -1,6 +1,6 @@
 ﻿using GameModes.Shared.Models.Customization;
 
-namespace SNTools.Game.Features.Skins;
+namespace SNTools.Game.Tools.Skins;
 
 internal static class EmotesUnlocker
 {
