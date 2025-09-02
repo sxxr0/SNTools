@@ -3,6 +3,7 @@ using HarmonyLib;
 using Microsoft.Extensions.Logging;
 using SNTools.UI;
 using System.Reflection;
+using UnityEngine;
 using UnityExplorer;
 
 namespace SNTools.Game;
@@ -46,6 +47,9 @@ public static class GameModController
     private static void OnUpdate()
     {
         ToolsUIController.Update();
+
+        if (Input.GetKeyDown(KeyCode.Backslash))
+            Program.MainLogger.LogDebug(PhotonNetworkAPI.GetCustomRoomList().ToString());
     }
 
     [HarmonyPatch(typeof(GameModeController), GameModeControllerAPI.SetGameModeMethod)]

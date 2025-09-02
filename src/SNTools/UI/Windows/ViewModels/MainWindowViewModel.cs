@@ -14,7 +14,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public ReadOnlyCollection<Category> Categories { get; } = new List<Category>()
     {
         new("Identity", new IdentityPage(), GameMode.MENU),
-        new("Skins", new SkinsPage(), GameMode.MENU, GameMode.LOBBY)
+        new("Skins", new SkinsPage(), GameMode.MENU, GameMode.LOBBY),
+        new("Lobbies", new LobbiesPage(), GameMode.MENU)
     }.AsReadOnly();
 
     public ObservableCollection<Category> ActiveCategories { get; } = [];

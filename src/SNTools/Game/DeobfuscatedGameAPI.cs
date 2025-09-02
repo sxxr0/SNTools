@@ -14,12 +14,15 @@ global using GetLoadoutRequestResult = Object1Public99VoUnique;
 global using HoloNetGlobalMessage = Object1PublicObVoObUnique;
 global using HoloNetMessenger = ObjectPublicDoBoObBoUnique;
 global using HoloNetObjectMessage = Object1PublicObBoObUnique;
+global using HoloNetRoom = ObjectPublicStObInObBoBoInObBoObUnique;
 global using Loadout = ObjectPublicAcLiAc1ObObObUnique;
 global using LoadoutSerializer = h5ay7rju46La5doyt5jtndrdfjf;
-global using Lobby = ObjectPublicStObInObBoBoInObBoObUnique;
 global using LobbyPlayerDoEmotionMessage = Object2PublicStObVoStObStObStObSt0;
 //global using DoorOpenMessage = Object2PublicSiObPlUnique;
 global using OriginalMessageTarget = EnumPublicSealedva5v1;
+global using PhotonNetwork = ObjectPublicAbstractSealedObInObSeBoObSiDoSiBoUnique;
+global using PhotonNetworkProvider = ObjectPublicObBoObStBoObBoObBoObUnique; //Method_Private_ObjectPublicStObInObBoBoInObBoObUnique_ObjectPublicBoHaInStInBoStHaInBoUnique_0 for converting rooms
+global using PhotonRoomInfo = ObjectPublicBoHaInStInBoStHaInBoUnique;
 global using PlayerApplyBuffMessage = Object2PublicSeUnique;
 global using PlayerBuff = EnumPublicSealedvaSTCAGLCADITODIKNSLUnique;
 global using PlayerController = ObjectPublicObLi1PlInPlInObLi1Unique;
@@ -80,7 +83,7 @@ internal static class DeobfuscatedExtensions
         return LoadoutSerializer.Method_Public_Static_h5ay7rju46La5doyt5jtndrdfjf_ObjectPublicAcLiAc1ObObObUnique_0(loadout);
     }
 
-    public static Lobby GetSelectedLobby(this CustomGameScreen cgs)
+    public static HoloNetRoom GetSelectedLobby(this CustomGameScreen cgs)
     {
         return cgs.field_Private_ObjectPublicStObInObBoBoInObBoObUnique_0;
     }
@@ -192,10 +195,24 @@ internal static class DeobfuscatedExtensions
     {
         return message.field_Public_String_0;
     }
+
+    public static HoloNetRoom ConvertRoomToHoloNet(this PhotonNetworkProvider provider, PhotonRoomInfo photonRoom)
+        => provider.Method_Private_ObjectPublicStObInObBoBoInObBoObUnique_ObjectPublicBoHaInStInBoStHaInBoUnique_0(photonRoom);
 }
 
 internal static class DeobfuscatedTypes
 {
+    public static class PhotonNetworkProviderAPI
+    {
+        public const string OnRoomListUpdateMethod = nameof(PhotonNetworkProvider.Method_Public_Virtual_Final_New_Void_List_1_ObjectPublicBoHaInStInBoStHaInBoUnique_0);
+    }
+
+    public static class PhotonNetworkAPI
+    {
+        public static bool GetCustomRoomList()
+            => PhotonNetwork.Method_Public_Static_Boolean_ObjectPublicStObBoObUnique_ObscuredString_0(PhotonNetwork.prop_ObjectPublicStObBoObUnique_0, new("C0!=-1"));
+    }
+
     public static class HoloNetMessengerAPI
     {
         public static void SendMessage(HoloNetGlobalMessage message, MessageTarget target = MessageTarget.All)
@@ -218,7 +235,7 @@ internal static class DeobfuscatedTypes
 
     public static class LobbyControllerAPI
     {
-        public static void JoinLobby(Lobby lobby)
+        public static void JoinLobby(HoloNetRoom lobby)
         {
             LobbyController.prop_LobbyController_0.Method_Public_Void_ObjectPublicStObInObBoBoInObBoObUnique_0(lobby);
         }

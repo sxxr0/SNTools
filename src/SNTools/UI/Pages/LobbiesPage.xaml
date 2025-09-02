@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="SNTools.UI.Pages.LobbiesPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SNTools.UI.Pages"
+             xmlns:vm="clr-namespace:SNTools.UI.Pages.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="630" d:DesignWidth="460">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UI/MainStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <vm:LobbiesPageViewModel />
+    </UserControl.DataContext>
+    <Grid>
+        <ItemsControl ItemsSource="{Binding Lobbies}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Margin="0 0 0 6" Command="{Binding DataContext.JoinLobbyCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}">
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Background="#2669" Padding="4" CornerRadius="7" Margin="0 0 10 0">
+                                    <TextBlock FontSize="12"><Run Text="{Binding Type, Mode=OneWay}"/> Game</TextBlock>
+                                </Border>
+                                <Border Background="#3000" Padding="4" CornerRadius="7" Margin="0 0 10 0">
+                                    <TextBlock FontSize="12"><Run Text="{Binding PlayerCount, Mode=OneWay}"/>/6</TextBlock>
+                                </Border>
+                                <Border Background="#3000" Padding="4" CornerRadius="7">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Locale}" Value="">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <TextBlock FontSize="12" Text="{Binding Locale}"/>
+                                </Border>
+                            </StackPanel>
+                            <DockPanel Grid.Row="1" Margin="5">
+                                <TextBlock Text="{Binding}" DockPanel.Dock="Top"/>
+                                <TextBlock Text="{Binding PasswordWithIcon}" FontSize="12" DockPanel.Dock="Bottom">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding PasswordWithIcon}" Value="">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DockPanel>
+                        </Grid>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>
