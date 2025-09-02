@@ -1,31 +1,26 @@
 using GameModes.Shared.Models.Customization;
-using HarmonyLib;
 
 namespace SNTools.Game.Tools.Skins;
 
-[HarmonyPatch]
-internal static class SkinsUnlocker
+public class SkinsUnlocker() : ToggleTool(GameMode.MENU, GameMode.LOBBY)
 {
     private static (CustomizationItemInfo info, bool isDefault)[]? _allItems;
 
-    private static bool _enabled;
-
-    public static bool Enabled
+    protected override void Disable()
     {
-        get => _enabled;
-        set
+        foreach (var (info, isDefault) in _allItems!)
         {
-            if (value == _enabled)
-                return;
+            info.isDefaultValue = isDefault;
+        }
+    }
 
-            _enabled = value;
+    protected override void Enable()
+    {
+        InitializeItemLists();
 
-            InitializeItemLists();
-
-            foreach (var (info, isDefault) in _allItems!)
-            {
-                info.isDefaultValue = value || isDefault;
-            }
+        foreach (var (info, _) in _allItems!)
+        {
+            info.isDefaultValue = true;
         }
     }
 

@@ -2,20 +2,19 @@
 
 namespace SNTools.Game.Tools.Identity;
 
-internal static class NameChanger
+public class NameChanger() : PropertyOverrideTool<string>(GameMode.MENU)
 {
-    public static string Name
+    protected override void RestoreDefault()
     {
-        get => GameContextAPI.GetLocalPlayerInfo().GetName();
-        set
-        {
-            GameContextAPI.GetLocalPlayerInfo().SetName(value);
-            MenuScenery.prop_MenuScenery_0.lobbyPlayerCharacter.RefreshName();
-        }
+        SetValue(PlatformAPI.GetUserName());
     }
 
-    public static void RestoreDefaultName()
+    protected override void SetValue(string value)
     {
-        Name = PlatformAPI.GetUserName();
+        GameContextAPI.GetLocalPlayerInfo().SetName(value ?? string.Empty);
+        MenuScenery.prop_MenuScenery_0.lobbyPlayerCharacter.RefreshName();
     }
+
+    protected override bool IsDefault()
+        => string.IsNullOrEmpty(Value);
 }

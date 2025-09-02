@@ -19,9 +19,8 @@
     </UserControl.DataContext>
     <Grid>
         <DockPanel Height="70">
-            <TextBlock DockPanel.Dock="Top" Margin="5 5 5 0" VerticalAlignment="Center">Player Name</TextBlock>
-            <Button DockPanel.Dock="Right" Margin="5" Width="120" Command="{Binding RestoreDefaultNameCommand}">Restore Default</Button>
-            <TextBox DockPanel.Dock="Left" Margin="5" Text="{Binding PlayerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock DockPanel.Dock="Top" Margin="5 5 5 0" VerticalAlignment="Center">Override Player Name</TextBlock>
+            <TextBox DockPanel.Dock="Left" Margin="5" Text="{Binding NameChanger.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
     </Grid>
 </UserControl>

@@ -2,28 +2,27 @@
 
 namespace SNTools.Game.Tools.Skins;
 
-internal static class EmotesUnlocker
+public class EmotesUnlocker() : ToggleTool(GameMode.MENU, GameMode.LOBBY)
 {
     private static (CustomizationEmotionsInfo info, ActorType actorType, bool isDefault)[]? _allEmotions;
 
-    private static bool _enabled;
-
-    public static bool Enabled
+    protected override void Disable()
     {
-        get => _enabled;
-        set
+        foreach (var (info, actorType, isDefault) in _allEmotions!)
         {
-            if (value == _enabled)
-                return;
+            info.allowedActorType = actorType;
+            info.isDefaultValue = isDefault;
+        }
+    }
 
-            _enabled = value;
+    protected override void Enable()
+    {
+        InitializeItemLists();
 
-            InitializeItemLists();
-            foreach (var (info, _, isDefault) in _allEmotions!)
-            {
-                info.allowedActorType = value ? ActorType.ANY : info.allowedActorType;
-                info.isDefaultValue = value || isDefault;
-            }
+        foreach (var (info, _, _) in _allEmotions!)
+        {
+            info.allowedActorType = ActorType.ANY;
+            info.isDefaultValue = true;
         }
     }
 

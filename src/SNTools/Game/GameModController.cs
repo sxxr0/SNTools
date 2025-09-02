@@ -12,11 +12,12 @@ public static class GameModController
 {
     private static bool _inited;
     private static readonly ToolsLogger _ueLogger = new("UnityExplorer", System.Drawing.Color.Purple);
-    private static GameMode _currentGameMode;
 
     public static Harmony Harmony { get; private set; } = null!;
+    public static GameMode CurrentGameMode { get; private set; }
 
     public static event Action<GameMode>? GameModeChanged;
+    public static event Action<GameMode>? GameModeChanging;
 
     public static void Init()
     {
@@ -48,13 +49,23 @@ public static class GameModController
     }
 
     [HarmonyPatch(typeof(GameModeController), GameModeControllerAPI.SetGameModeMethod)]
-    [HarmonyPostfix]
-    private static void OnSetGameMode([HarmonyArgument(0)] GameMode gameMode)
+    [HarmonyPrefix]
+    private static void OnSettingGameMode([HarmonyArgument(0)] GameMode gameMode)
     {
-        if (gameMode == _currentGameMode)
+        if (gameMode == CurrentGameMode)
             return;
 
-        _currentGameMode = gameMode;
+        GameModeChanging?.Invoke(gameMode);
+    }
+
+    [HarmonyPatch(typeof(GameModeController), GameModeControllerAPI.SetGameModeMethod)]
+    [HarmonyPostfix]
+    private static void OnGameModeSet([HarmonyArgument(0)] GameMode gameMode)
+    {
+        if (gameMode == CurrentGameMode)
+            return;
+
+        CurrentGameMode = gameMode;
 
         GameModeChanged?.Invoke(gameMode);
     }

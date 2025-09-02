@@ -19,8 +19,8 @@
     </UserControl.DataContext>
     <Grid>
         <StackPanel>
-            <ToggleButton Height="40" Margin="5" IsChecked="{Binding UnlockSkins, Mode=TwoWay}">Unlock all Skins</ToggleButton>
-            <ToggleButton Height="40" Margin="5" IsChecked="{Binding UnlockEmotes, Mode=TwoWay}">Unlock all Emotes</ToggleButton>
+            <ToggleButton Height="40" Margin="5" IsChecked="{Binding SkinsUnlocker.Enabled, Mode=TwoWay}">Unlock all Skins</ToggleButton>
+            <ToggleButton Height="40" Margin="5" IsChecked="{Binding EmotesUnlocker.Enabled, Mode=TwoWay}">Unlock all Emotes</ToggleButton>
         </StackPanel>
     </Grid>
 </UserControl>
