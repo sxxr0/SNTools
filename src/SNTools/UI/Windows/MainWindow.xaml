@@ -23,8 +23,8 @@
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ListBox ItemsSource="{Binding ActiveCategories}" x:Name="PageList" DisplayMemberPath="Name" Background="#2000" SelectedIndex="0"/>
-            <ContentControl Grid.Column="1" Content="{Binding SelectedItem.Content, ElementName=PageList}" Margin="20"/>
+            <ListBox ItemsSource="{Binding ActiveCategories}" SelectedItem="{Binding CurrentCategory}" x:Name="PageList" DisplayMemberPath="Name" Background="#2000" SelectedIndex="0"/>
+            <ContentControl Grid.Column="1" Content="{Binding CurrentCategory.Content}" Margin="20"/>
         </Grid>
     </custom:SubWindow>
 </UserControl>

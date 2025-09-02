@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SNTools.UI.Pages.IdentityPage"
+﻿<UserControl x:Class="SNTools.UI.Pages.SkinsPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,13 +15,12 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>
-        <vm:IdentityPageViewModel />
+        <vm:SkinsPageViewModel />
     </UserControl.DataContext>
     <Grid>
-        <DockPanel Height="70">
-            <TextBlock DockPanel.Dock="Top" Margin="5 5 5 0" VerticalAlignment="Center">Player Name</TextBlock>
-            <Button DockPanel.Dock="Right" Margin="5" Width="120" Command="{Binding RestoreDefaultNameCommand}">Restore Default</Button>
-            <TextBox DockPanel.Dock="Left" Margin="5" Text="{Binding PlayerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        </DockPanel>
+        <StackPanel>
+            <ToggleButton Height="40" Margin="5" IsChecked="{Binding UnlockSkins, Mode=TwoWay}">Unlock all Skins</ToggleButton>
+            <ToggleButton Height="40" Margin="5" IsChecked="{Binding UnlockEmotes, Mode=TwoWay}">Unlock all Emotes</ToggleButton>
+        </StackPanel>
     </Grid>
 </UserControl>

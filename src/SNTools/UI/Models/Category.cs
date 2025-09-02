@@ -1,18 +1,11 @@
-using System.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System.Windows.Controls;
 
 namespace SNTools.UI.Models;
 
-public class Category(string name, UserControl content, GameMode gameMode) : INotifyPropertyChanged
+public class Category(string name, UserControl content, params GameMode[] gameMode) : ObservableObject
 {
     public string Name { get; } = name;
     public UserControl Content { get; } = content;
-    public GameMode GameMode { get; } = gameMode;
-
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    public GameMode[] GameMode { get; } = gameMode;
 }

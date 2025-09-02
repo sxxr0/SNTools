@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SNTools.Game.Features.Identity;
 
 namespace SNTools.UI.Pages.ViewModels;
@@ -6,18 +7,22 @@ namespace SNTools.UI.Pages.ViewModels;
 public partial class IdentityPageViewModel : ObservableObject
 {
     [ObservableProperty]
-    private bool _unlockSkins;
+    private string _playerName = string.Empty;
 
-    [ObservableProperty]
-    private bool _unlockEmotes;
-
-    partial void OnUnlockSkinsChanged(bool value)
+    internal void Refresh()
     {
-        SkinsUnlocker.Enabled = value;
+        PlayerName = NameChanger.Name;
     }
 
-    partial void OnUnlockEmotesChanged(bool value)
+    partial void OnPlayerNameChanged(string value)
     {
-        EmotesUnlocker.Enabled = value;
+        NameChanger.Name = value;
+    }
+
+    [RelayCommand]
+    private void RestoreDefaultName()
+    {
+        NameChanger.RestoreDefaultName();
+        PlayerName = NameChanger.Name;
     }
 }

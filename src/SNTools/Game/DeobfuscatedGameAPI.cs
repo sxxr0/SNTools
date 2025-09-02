@@ -5,6 +5,9 @@ global using ActorType = EnumPublicSealedvaEXNECUSPITAN8vNEUnique;
 global using EncryptedString = ValueTypePublicSealedObBy_sVoStVoByVoUnique;
 global using EndingType = EnumPublicSealedvaALBATIQU5vUnique;
 global using EndMatchMessage = Object2Public47ObVo47Ob47Ob47Ob470;
+//global using KeycardDoorUnlockedMessage = Object2PublicIn31Ob31InObVo31InObUnique;
+//global using LockUnlockedMessage = Object2Public3150PlObVo50PlObPl50Unique;
+global using GameContext = ObjectPublicObStObLi1ObMaLi1BoUnique;
 global using GameMode = EnumPublicSealedvaNOGALOMEPRGAMASHCRUnique;
 global using GameModeController = ObjectPublicDi2ObLiOb1AcBoAcObUnique;
 global using GetLoadoutRequestResult = Object1Public99VoUnique;
@@ -21,7 +24,7 @@ global using PlayerApplyBuffMessage = Object2PublicSeUnique;
 global using PlayerBuff = EnumPublicSealedvaSTCAGLCADITODIKNSLUnique;
 global using PlayerController = ObjectPublicObLi1PlInPlInObLi1Unique;
 global using PlayerDeactiveBuffMessage = Object2PublicInObUnique;
-//global using PlayerInfo = ObjectPublicObBoObAcBo1ObStAc1Unique;
+global using PlayerInfo = ObjectPublicObInObBoPlObBoAc1StUnique;
 global using PlayfabBackendAdapter = ObjectPublicStObStDi2SiObDi2StUnique;
 //global using PlayerPickUpResourceMessage = Object2Public31InObVoInObInObInOb0;
 //global using SlingshotManager = Object2PublicObSiInSlBoScInBoSlUnique;
@@ -31,8 +34,7 @@ global using PlayfabBackendAdapter = ObjectPublicStObStDi2SiObDi2StUnique;
 global using TeleportPlayerMessage = Object2PublicVeObVoVeObVeObVeObVe4;
 //global using ThrowableItemApplyForceMessage = Object2PublicVeDoVeUnique;
 global using UpdateLoadoutRequestResult = Object1PublicVo12;
-//global using KeycardDoorUnlockedMessage = Object2PublicIn31Ob31InObVo31InObUnique;
-//global using LockUnlockedMessage = Object2Public3150PlObVo50PlObPl50Unique;
+using AppControllers;
 using GameModes.GameplayMode.ActorClassSystem.Classes;
 using GameModes.GameplayMode.Actors;
 using GameModes.GameplayMode.Interactables.InventoryItems;
@@ -113,10 +115,10 @@ internal static class DeobfuscatedExtensions
         return player.prop_Boolean_3;
     }
 
-    //public static PlayerInfo GetPlayerInfo(this Player player)
-    //{
-    //    return player.prop_ObjectPublicObBoObAcBo1ObStAc1Unique_0;
-    //}
+    public static PlayerInfo GetPlayerInfo(this Player player)
+    {
+        return player.prop_ObjectPublicObInObBoPlObBoAc1StUnique_0;
+    }
 
     public static string Decrypt(this EncryptedString str)
     {
@@ -131,25 +133,25 @@ internal static class DeobfuscatedExtensions
         ])).Cast<EncryptedString>();
     }
 
-    //public static string GetName(this PlayerInfo player)
-    //{
-    //    return player.field_Public_ValueTypePublicSealedObBy_sVoStVoByVoUnique_2.Decrypt();
-    //}
+    public static string GetName(this PlayerInfo player)
+    {
+        return player.field_Public_ValueTypePublicSealedObBy_sVoStVoByVoUnique_2.Decrypt();
+    }
 
-    //public static string GetID(this PlayerInfo player)
-    //{
-    //    return player.field_Public_ValueTypePublicSealedObBy_sVoStVoByVoUnique_0.Decrypt();
-    //}
+    public static string GetID(this PlayerInfo player)
+    {
+        return player.field_Public_ValueTypePublicSealedObBy_sVoStVoByVoUnique_0.Decrypt();
+    }
 
-    //public static void SetName(this PlayerInfo player, string name)
-    //{
-    //    player.field_Public_ValueTypePublicSealedObBy_sVoStVoByVoUnique_2 = name.Encrypt();
-    //}
+    public static void SetName(this PlayerInfo player, string name)
+    {
+        player.field_Public_ValueTypePublicSealedObBy_sVoStVoByVoUnique_2 = name.Encrypt();
+    }
 
-    //public static void SetID(this PlayerInfo player, string id)
-    //{
-    //    player.field_Public_ValueTypePublicSealedObBy_sVoStVoByVoUnique_0 = id.Encrypt();
-    //}
+    public static void SetID(this PlayerInfo player, string id)
+    {
+        player.field_Public_ValueTypePublicSealedObBy_sVoStVoByVoUnique_0 = id.Encrypt();
+    }
 
     public static ActorClassInfo? GetActorClassInfo(this Actor actor)
     {
@@ -178,7 +180,7 @@ internal static class DeobfuscatedExtensions
 
     public static void RefreshName(this LobbyCharacter character)
     {
-        character.Method_Public_Void_PDM_0();
+        character.Method_Public_Void_PDM_4();
     }
 
     public static bool IsLocal(this LobbyPlayer player)
@@ -268,12 +270,18 @@ internal static class DeobfuscatedTypes
         public const string OnEmotionMessageMethod = nameof(LobbyPlayer.Method_Private_Void_Object2PublicStObVoStObStObStObSt0_PDM_0);
     }
 
-    public static class GameContextUtils
+    public static class GameContextAPI
     {
-        //public static PlayerInfo GetLocalPlayerInfo()
-        //{
-        //    return GameContext.prop_ObjectPublicObStObLi1ObMaLi1BoUnique_0.field_Public_ObjectPublicObBoObAcBo1ObStAc1Unique_0;
-        //}
+        public static PlayerInfo GetLocalPlayerInfo()
+        {
+            return GameContext.prop_ObjectPublicObStObLi1ObMaLi1BoUnique_0.field_Public_ObjectPublicObInObBoPlObBoAc1StUnique_0;
+        }
+    }
+
+    public static class PlatformAPI
+    {
+        public static string GetUserName()
+            => AppController.prop_AppController_0.field_Public_ObjectPublicBoObBoAc2BoPlObStBoUnique_0.Method_Public_String_0();
     }
 
     public static class HoloNetMessages
