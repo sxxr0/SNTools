@@ -79,6 +79,7 @@
                                             <Setter Property="Background" Value="#A111"/>
                                             <Setter Property="Opacity" Value="0.7"/>
                                             <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="IsSelected" Value="False"/>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
