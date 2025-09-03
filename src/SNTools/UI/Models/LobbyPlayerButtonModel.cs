@@ -10,6 +10,7 @@ public partial class LobbyPlayerButtonModel(int slot, Brush color) : ObservableO
     [NotifyPropertyChangedFor(nameof(Enabled))]
     [NotifyPropertyChangedFor(nameof(DisplayName))]
     [NotifyPropertyChangedFor(nameof(Id))]
+    [NotifyPropertyChangedFor(nameof(IsLocal))]
     private LobbyPlayerWrapper? _lobbyPlayer;
 
     public Brush Color { get; } = color;

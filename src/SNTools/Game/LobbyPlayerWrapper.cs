@@ -12,5 +12,5 @@ public class LobbyPlayerWrapper(LobbyPlayer lobbyPlayer, PlayerInfo playerInfo)
 
     public int LobbySlot => LobbyPlayer.field_Public_LobbyCharacter_0?._lobbyPosition ?? -1;
 
-    public bool IsLocal => LobbyPlayer.prop_HoloNetObject_0.IsLocal;
+    public bool IsLocal => LobbyPlayer.IsLocal();
 }

@@ -37,6 +37,7 @@ global using PlayfabBackendAdapter = ObjectPublicStObStDi2SiObDi2StUnique;
 global using TeleportPlayerMessage = Object2PublicVeObVoVeObVeObVeObVe4;
 //global using ThrowableItemApplyForceMessage = Object2PublicVeDoVeUnique;
 global using UpdateLoadoutRequestResult = Object1PublicVo12;
+global using HoloNetPlayer = ObjectPublicAbstractISerializableInObBoLiBoOb1BoObBoUnique;
 using AppControllers;
 using GameModes.GameplayMode.ActorClassSystem.Classes;
 using GameModes.GameplayMode.Actors;
