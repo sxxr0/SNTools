@@ -31,8 +31,15 @@ public static class GameModController
 
         Harmony.PatchAll(typeof(GameModController).Assembly);
 
+        Application.quitting += (Action)OnQuit;
+
         Assembly.Load("UnityEngine.AssetBundleModule");
         ExplorerStandalone.CreateInstance(OnUnityExplorerLog);
+    }
+
+    private static void OnQuit()
+    {
+        ToolsConfig.Save();
     }
 
     [HarmonyPatch(typeof(AppController), "Start")]

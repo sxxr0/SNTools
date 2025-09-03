@@ -15,6 +15,7 @@ This project is licensed under the [MIT License](LICENSE).
 - [Dobby (BepInEx fork)](https://github.com/BepInEx/Dobby) — Apache-2.0 License ([source](https://github.com/BepInEx/Dobby/blob/master/LICENSE))
 - [Semver](https://github.com/WalkerCodeRanger/semver) — MIT License ([source](https://github.com/WalkerCodeRanger/semver/blob/master/License.txt))
 - [CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet) — MIT License ([source](https://github.com/CommunityToolkit/dotnet/blob/main/License.md))
+- [Tomlet](https://github.com/SamboyCoding/Tomlet) - MIT License ([source](https://github.com/SamboyCoding/Tomlet/blob/master/LICENSE))
 
 ### Disclaimer:
 

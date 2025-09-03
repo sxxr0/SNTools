@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Tomlet.Models;
 
 namespace SNTools.Game;
 
@@ -41,6 +42,20 @@ public abstract partial class ToggleTool : Tool
             Enable();
         else
             Disable();
+    }
+
+    public override void SaveSetting(TomlDocument document)
+    {
+        document.Entries[Id] = TomlBoolean.ValueOf(Enabled);
+    }
+
+    public override void LoadSetting(TomlDocument document)
+    {
+        try
+        {
+            Enabled = document.GetBoolean(Id);
+        }
+        catch { }
     }
 
     protected abstract void Enable();

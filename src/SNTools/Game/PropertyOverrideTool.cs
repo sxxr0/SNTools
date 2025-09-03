@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using Tomlet;
+using Tomlet.Models;
 
 namespace SNTools.Game;
 
@@ -36,6 +38,26 @@ public abstract partial class PropertyOverrideTool<T> : Tool
             RestoreDefault();
         else
             SetValue(Value);
+    }
+
+    public override void SaveSetting(TomlDocument document)
+    {
+        if (IsDefault())
+            document.Entries.Remove(Id);
+        else
+            document.Entries[Id] = TomletMain.ValueFrom(Value);
+    }
+
+    public override void LoadSetting(TomlDocument document)
+    {
+        if (document.TryGetValue(Id, out var value))
+        {
+            try
+            {
+                Value = TomletMain.To<T>(value);
+            }
+            catch { }
+        }
     }
 
     [MemberNotNullWhen(false, nameof(Value))]
