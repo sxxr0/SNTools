@@ -49,12 +49,25 @@
                                                 <Border Background="#2669" Padding="3" CornerRadius="6" Margin="0 0 6 0">
                                                     <TextBlock FontSize="10">Slot <Run Text="{Binding Slot, Mode=OneWay}"/></TextBlock>
                                                 </Border>
+                                                <Border Background="#2FF6" Padding="3" CornerRadius="6" Margin="0 0 6 0">
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding LobbyPlayer.IsMaster}" Value="True">
+                                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                    <TextBlock FontSize="10">Master</TextBlock>
+                                                </Border>
                                                 <Border Background="#3000" Padding="3" CornerRadius="6">
                                                     <Border.Style>
                                                         <Style TargetType="Border">
                                                             <Setter Property="Visibility" Value="Collapsed"/>
                                                             <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding IsLocal}" Value="True">
+                                                                <DataTrigger Binding="{Binding LobbyPlayer.IsLocal}" Value="True">
                                                                     <Setter Property="Visibility" Value="Visible"/>
                                                                 </DataTrigger>
                                                             </Style.Triggers>
@@ -64,7 +77,7 @@
                                                 </Border>
                                             </StackPanel>
                                             <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding DisplayName}" FontWeight="SemiBold" Grid.Row="1" FontSize="12" TextAlignment="Center"/>
-                                            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding Id}" Grid.Row="2" FontSize="10" TextAlignment="Center"/>
+                                            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding LobbyPlayer.UnreliableId}" Grid.Row="2" FontSize="10" TextAlignment="Center"/>
                                         </Grid>
                                     </Border>
                                     <ControlTemplate.Triggers>
@@ -94,5 +107,18 @@
                 </ListBox.ItemsPanel>
             </ListBox>
         </Border>
+        <StackPanel Grid.Row="1" Margin="10">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedPlayer}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <Button Height="40" Command="{Binding MakeMasterClientCommand}">Make Master Client</Button>
+        </StackPanel>
     </Grid>
 </UserControl>

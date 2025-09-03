@@ -36,4 +36,14 @@ internal static class LobbyPlayerManager
             Players.Remove(player);
         }
     }
+
+    [HarmonyPatch(typeof(PhotonNetworkProvider), PhotonNetworkProviderAPI.OnMasterClientSwitchedMethod)]
+    [HarmonyPostfix]
+    private static void OnMasterClientSwitchedPatch()
+    {
+        foreach (var player in Players)
+        {
+            player.NotifyMasterChanged();
+        }
+    }
 }

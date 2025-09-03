@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SNTools.Game;
 using SNTools.UI.Models;
 using System.Collections.Specialized;
@@ -41,5 +42,11 @@ public partial class LobbyPlayersPageViewModel : ObservableObject
     internal void Unload()
     {
         LobbyPlayerManager.Players.CollectionChanged -= OnPlayerListChanged;
+    }
+
+    [RelayCommand]
+    private void MakeMasterClient()
+    {
+        SelectedPlayer?.LobbyPlayer?.SetMasterClient();
     }
 }

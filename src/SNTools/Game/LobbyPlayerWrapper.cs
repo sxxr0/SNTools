@@ -1,10 +1,15 @@
-﻿namespace SNTools.Game;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-public class LobbyPlayerWrapper(LobbyPlayer lobbyPlayer, PlayerInfo playerInfo)
+namespace SNTools.Game;
+
+public partial class LobbyPlayerWrapper(LobbyPlayer lobbyPlayer, PlayerInfo playerInfo) : ObservableObject
 {
-    public LobbyPlayer LobbyPlayer { get; } = lobbyPlayer;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(DisplayName))]
+    [NotifyPropertyChangedFor(nameof(UnreliableId))]
+    public PlayerInfo _playerInfo = playerInfo;
 
-    public PlayerInfo PlayerInfo { get; set; } = playerInfo;
+    public LobbyPlayer LobbyPlayer { get; } = lobbyPlayer;
 
     public string DisplayName => PlayerInfo.GetName();
 
@@ -13,4 +18,16 @@ public class LobbyPlayerWrapper(LobbyPlayer lobbyPlayer, PlayerInfo playerInfo)
     public int LobbySlot => LobbyPlayer.field_Public_LobbyCharacter_0?._lobbyPosition ?? -1;
 
     public bool IsLocal => LobbyPlayer.IsLocal();
+
+    public bool IsMaster => LobbyPlayer.GetHoloNetPlayer().IsMasterClient();
+
+    public void SetMasterClient()
+    {
+        LobbyPlayer.GetHoloNetPlayer().SetMasterClient();
+    }
+
+    public void NotifyMasterChanged()
+    {
+        OnPropertyChanged(nameof(IsMaster));
+    }
 }

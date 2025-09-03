@@ -21,7 +21,7 @@
         <ItemsControl ItemsSource="{Binding Lobbies}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Margin="0 0 0 6"
+                    <Button Margin="0 0 0 6" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
                             Command="{Binding DataContext.JoinLobbyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                             CommandParameter="{Binding}">
                         <Grid Margin="10">

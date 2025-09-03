@@ -14,14 +14,18 @@ global using GetLoadoutRequestResult = Object1Public99VoUnique;
 global using HoloNetGlobalMessage = Object1PublicObVoObUnique;
 global using HoloNetMessenger = ObjectPublicDoBoObBoUnique;
 global using HoloNetObjectMessage = Object1PublicObBoObUnique;
+global using HoloNetPlayer = ObjectPublicAbstractISerializableInObBoLiBoOb1BoObBoUnique;
 global using HoloNetRoom = ObjectPublicStObInObBoBoInObBoObUnique;
 global using Loadout = ObjectPublicAcLiAc1ObObObUnique;
 global using LoadoutSerializer = h5ay7rju46La5doyt5jtndrdfjf;
 global using LobbyPlayerDoEmotionMessage = Object2PublicStObVoStObStObStObSt0;
 //global using DoorOpenMessage = Object2PublicSiObPlUnique;
 global using OriginalMessageTarget = EnumPublicSealedva5v1;
+global using PhotonHoloNetPlayer = Object1PublicISerializableObBoObBoUnique;
 global using PhotonNetwork = ObjectPublicAbstractSealedObInObSeBoObSiDoSiBoUnique;
 global using PhotonNetworkProvider = ObjectPublicObBoObStBoObBoObBoObUnique; //Method_Private_ObjectPublicStObInObBoBoInObBoObUnique_ObjectPublicBoHaInStInBoStHaInBoUnique_0 for converting rooms
+global using PhotonPlayer = ObjectPublicObInBoStBoHaStObInHaUnique;
+global using PhotonRoom = Object1PublicObBoDi2InStObBoInDiUnique;
 global using PhotonRoomInfo = ObjectPublicBoHaInStInBoStHaInBoUnique;
 global using PlayerApplyBuffMessage = Object2PublicSeUnique;
 global using PlayerBuff = EnumPublicSealedvaSTCAGLCADITODIKNSLUnique;
@@ -37,7 +41,6 @@ global using PlayfabBackendAdapter = ObjectPublicStObStDi2SiObDi2StUnique;
 global using TeleportPlayerMessage = Object2PublicVeObVoVeObVeObVeObVe4;
 //global using ThrowableItemApplyForceMessage = Object2PublicVeDoVeUnique;
 global using UpdateLoadoutRequestResult = Object1PublicVo12;
-global using HoloNetPlayer = ObjectPublicAbstractISerializableInObBoLiBoOb1BoObBoUnique;
 using AppControllers;
 using GameModes.GameplayMode.ActorClassSystem.Classes;
 using GameModes.GameplayMode.Actors;
@@ -172,15 +175,8 @@ internal static class DeobfuscatedExtensions
         player.prop_HoloNetObject_0.SendMessage(HoloNetMessages.CreatePlayerDeactiveBuffMessage(buff));
     }
 
-    public static HoloNetObject GetNetObject(this Player player)
-    {
-        return player.prop_HoloNetObject_0;
-    }
-
-    public static HoloNetObject GetNetObject(this LobbyPlayer player)
-    {
-        return player.prop_HoloNetObject_0;
-    }
+    public static HoloNetPlayer GetHoloNetPlayer(this LobbyPlayer lobbyPlayer)
+        => lobbyPlayer.prop_HoloNetObject_0.prop_ObjectPublicAbstractISerializableInObBoLiBoOb1BoObBoUnique_0;
 
     public static void RefreshName(this LobbyCharacter character)
     {
@@ -189,7 +185,7 @@ internal static class DeobfuscatedExtensions
 
     public static bool IsLocal(this LobbyPlayer player)
     {
-        return player.GetNetObject().IsLocal;
+        return player.prop_HoloNetObject_0.IsLocal;
     }
 
     public static string GetEmotionID(this LobbyPlayerDoEmotionMessage message)
@@ -199,17 +195,36 @@ internal static class DeobfuscatedExtensions
 
     public static HoloNetRoom ConvertRoomToHoloNet(this PhotonNetworkProvider provider, PhotonRoomInfo photonRoom)
         => provider.Method_Private_ObjectPublicStObInObBoBoInObBoObUnique_ObjectPublicBoHaInStInBoStHaInBoUnique_0(photonRoom);
+
+    public static bool IsLocal(this HoloNetPlayer player)
+        => player.prop_Boolean_0;
+
+    public static bool IsMasterClient(this HoloNetPlayer player)
+        => player.prop_Boolean_1;
+
+    public static bool SetMasterClient(this PhotonRoom room, PhotonPlayer player)
+        => room.Method_Public_Boolean_ObjectPublicObInBoStBoHaStObInHaUnique_PDM_2(player);
+
+    public static bool SetMasterClient(this HoloNetPlayer player)
+    {
+        var room = PhotonNetworkAPI.GetCurrentRoom();
+        return room != null && room.SetMasterClient(player.Cast<PhotonHoloNetPlayer>().prop_ObjectPublicObInBoStBoHaStObInHaUnique_0);
+    }
 }
 
 internal static class DeobfuscatedTypes
 {
     public static class PhotonNetworkProviderAPI
     {
+        public const string OnMasterClientSwitchedMethod = nameof(PhotonNetworkProvider.Method_Public_Virtual_Final_New_Void_ObjectPublicObInBoStBoHaStObInHaUnique_1);
         public const string OnRoomListUpdateMethod = nameof(PhotonNetworkProvider.Method_Public_Virtual_Final_New_Void_List_1_ObjectPublicBoHaInStInBoStHaInBoUnique_0);
     }
 
     public static class PhotonNetworkAPI
     {
+        public static PhotonRoom? GetCurrentRoom()
+            => PhotonNetwork.prop_Object1PublicObBoDi2InStObBoInDiUnique_0;
+
         public static bool GetCustomRoomList()
             => PhotonNetwork.Method_Public_Static_Boolean_ObjectPublicStObBoObUnique_ObscuredString_0(PhotonNetwork.prop_ObjectPublicStObBoObUnique_0, new("C0!=-1"));
     }
