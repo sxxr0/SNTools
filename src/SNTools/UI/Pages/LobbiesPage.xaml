@@ -21,7 +21,9 @@
         <ItemsControl ItemsSource="{Binding Lobbies}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Button Margin="0 0 0 6" Command="{Binding DataContext.JoinLobbyCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}">
+                    <Button Margin="0 0 0 6"
+                            Command="{Binding DataContext.JoinLobbyCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding}">
                         <Grid Margin="10">
                             <Grid.RowDefinitions>
                                 <RowDefinition/>

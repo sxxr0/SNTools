@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:custom="clr-namespace:SNTools.UI.Controls"
              xmlns:vm="clr-namespace:SNTools.UI.Windows.ViewModels"
+             xmlns:pages="clr-namespace:SNTools.UI.Pages"
+             xmlns:pagesvm="clr-namespace:SNTools.UI.Pages.ViewModels"
              mc:Ignorable="d" 
              Width="700" Height="700">
     <UserControl.Resources>
@@ -12,6 +14,20 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UI/MainStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- VM-to-View mapping -->
+            <DataTemplate DataType="{x:Type pagesvm:IdentityPageViewModel}">
+                <pages:IdentityPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type pagesvm:LobbyPlayersPageViewModel}">
+                <pages:LobbyPlayersPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type pagesvm:SkinsPageViewModel}">
+                <pages:SkinsPage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type pagesvm:LobbiesPageViewModel}">
+                <pages:LobbiesPage/>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>
@@ -24,7 +40,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <ListBox ItemsSource="{Binding ActiveCategories}" SelectedItem="{Binding CurrentCategory}" x:Name="PageList" DisplayMemberPath="Name" Background="#2000" SelectedIndex="0"/>
-            <ContentControl Grid.Column="1" Content="{Binding CurrentCategory.Content}" Margin="20"/>
+            <ContentControl Grid.Column="1" Content="{Binding CurrentCategory.ViewModel}" Margin="20"/>
         </Grid>
     </custom:SubWindow>
 </UserControl>

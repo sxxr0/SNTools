@@ -1,7 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using SNTools.Game;
 using SNTools.UI.Models;
-using SNTools.UI.Pages;
+using SNTools.UI.Pages.ViewModels;
 using System.Collections.ObjectModel;
 
 namespace SNTools.UI.Windows.ViewModels;
@@ -13,9 +13,10 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public ReadOnlyCollection<Category> Categories { get; } = new List<Category>()
     {
-        new("Identity", new IdentityPage(), GameMode.MENU),
-        new("Skins", new SkinsPage(), GameMode.MENU, GameMode.LOBBY),
-        new("Lobbies", new LobbiesPage(), GameMode.MENU)
+        new("Identity", new IdentityPageViewModel(), GameMode.MENU),
+        new("Lobby Players", new LobbyPlayersPageViewModel(), GameMode.LOBBY),
+        new("Skins", new SkinsPageViewModel(), GameMode.MENU, GameMode.LOBBY),
+        new("Lobbies", new LobbiesPageViewModel(), GameMode.MENU)
     }.AsReadOnly();
 
     public ObservableCollection<Category> ActiveCategories { get; } = [];
@@ -23,6 +24,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
     public MainWindowViewModel()
     {
         GameModController.GameModeChanged += OnGameModeChanged;
+        OnGameModeChanged(GameModController.CurrentGameMode); // ensure initial population
     }
 
     private void OnGameModeChanged(GameMode gameMode)

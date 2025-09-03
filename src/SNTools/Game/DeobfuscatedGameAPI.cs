@@ -283,6 +283,7 @@ internal static class DeobfuscatedTypes
 
     public static class LobbyPlayerAPI
     {
+        public const string UpdatePlayerInfoMethod = nameof(LobbyPlayer.Method_Private_Void_ObjectPublicObInObBoPlObBoAc1StUnique_0);
         public const string OnKickMessageMethod = nameof(LobbyPlayer.Method_Public_Void_Object2PublicObVoObObObObObObObOb0_PDM_0);
         public const string OnEmotionMessageMethod = nameof(LobbyPlayer.Method_Private_Void_Object2PublicStObVoStObStObStObSt0_PDM_0);
     }
