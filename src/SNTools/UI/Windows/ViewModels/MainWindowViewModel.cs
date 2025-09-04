@@ -13,6 +13,7 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public ReadOnlyCollection<Category> Categories { get; } = new List<Category>()
     {
+        new("Login", new LoginPageViewModel(), GameMode.PRELOAD),
         new("Identity", new IdentityPageViewModel(), GameMode.MENU),
         new("Lobby Players", new LobbyPlayersPageViewModel(), GameMode.LOBBY),
         new("Skins", new SkinsPageViewModel(), GameMode.MENU, GameMode.LOBBY),

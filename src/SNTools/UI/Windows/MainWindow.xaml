@@ -16,6 +16,9 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!-- VM-to-View mapping -->
+            <DataTemplate DataType="{x:Type pagesvm:LoginPageViewModel}">
+                <pages:LoginPage/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type pagesvm:IdentityPageViewModel}">
                 <pages:IdentityPage/>
             </DataTemplate>

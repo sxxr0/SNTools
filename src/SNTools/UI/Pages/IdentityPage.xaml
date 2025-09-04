@@ -17,10 +17,10 @@
     <UserControl.DataContext>
         <vm:IdentityPageViewModel />
     </UserControl.DataContext>
-    <Grid>
+    <StackPanel>
         <DockPanel Height="70">
             <TextBlock DockPanel.Dock="Top" Margin="5 5 5 0" VerticalAlignment="Center">Override Player Name</TextBlock>
-            <TextBox DockPanel.Dock="Left" Margin="5" Text="{Binding NameChanger.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox DockPanel.Dock="Left" Margin="5" Text="{Binding NameChanger.Value, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
-    </Grid>
+    </StackPanel>
 </UserControl>
