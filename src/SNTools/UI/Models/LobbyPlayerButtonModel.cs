@@ -8,7 +8,6 @@ public partial class LobbyPlayerButtonModel(int slot, Brush color) : ObservableO
 {
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(Enabled))]
-    [NotifyPropertyChangedFor(nameof(DisplayName))]
     private LobbyPlayerWrapper? _lobbyPlayer;
 
     public Brush Color { get; } = color;
@@ -16,6 +15,4 @@ public partial class LobbyPlayerButtonModel(int slot, Brush color) : ObservableO
     public int Slot { get; } = slot;
 
     public bool Enabled => LobbyPlayer != null;
-
-    public string DisplayName => LobbyPlayer?.DisplayName ?? "Empty slot";
 }

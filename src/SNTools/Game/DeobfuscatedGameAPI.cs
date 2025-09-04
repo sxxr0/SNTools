@@ -3,8 +3,7 @@ global using ActorType = EnumPublicSealedvaEXNECUSPITAN8vNEUnique;
 //global using LobbyPlayerState = EnumPublicSealedvaNORELOLESEGASCMA9vUnique;
 //global using WindowBreakMessage = Object2PublicVeVoVeObObVeObVeObVeUnique;
 global using EncryptedString = ValueTypePublicSealedObBy_sVoStVoByVoUnique;
-global using EndingType = EnumPublicSealedvaALBATIQU5vUnique;
-global using EndMatchMessage = Object2Public47ObVo47Ob47Ob47Ob470;
+//global using EndMatchMessage = Object2Public47ObVo47Ob47Ob47Ob470;
 //global using KeycardDoorUnlockedMessage = Object2PublicIn31Ob31InObVo31InObUnique;
 //global using LockUnlockedMessage = Object2Public3150PlObVo50PlObPl50Unique;
 global using GameContext = ObjectPublicObStObLi1ObMaLi1BoUnique;
@@ -18,7 +17,7 @@ global using HoloNetPlayer = ObjectPublicAbstractISerializableInObBoLiBoOb1BoObB
 global using HoloNetRoom = ObjectPublicStObInObBoBoInObBoObUnique;
 global using Loadout = ObjectPublicAcLiAc1ObObObUnique;
 global using LoadoutSerializer = h5ay7rju46La5doyt5jtndrdfjf;
-global using LobbyPlayerDoEmotionMessage = Object2PublicStObVoStObStObStObSt0;
+//global using LobbyPlayerDoEmotionMessage = Object2PublicStObVoStObStObStObSt0;
 //global using DoorOpenMessage = Object2PublicSiObPlUnique;
 global using OriginalMessageTarget = EnumPublicSealedva5v1;
 global using PhotonHoloNetPlayer = Object1PublicISerializableObBoObBoUnique;
@@ -38,7 +37,7 @@ global using PlayfabBackendAdapter = ObjectPublicStObStDi2SiObDi2StUnique;
 //global using SonarBeamMessage = Object2Public92SiObVo92SiOb92SiOb0;
 //global using SonarIdleMessage = Object2Public92SiObVo92SiOb92SiOb1; // I'm not exactly sure what this message is for, but it's used between the sonar beams
 //global using LobbyPlayerStateSyncMessage = Object2Public60ObVo60Ob60Ob60Ob60Unique;
-global using TeleportPlayerMessage = Object2PublicVeObVoVeObVeObVeObVe4;
+//global using TeleportPlayerMessage = Object2PublicVeObVoVeObVeObVeObVe4;
 //global using ThrowableItemApplyForceMessage = Object2PublicVeDoVeUnique;
 global using UpdateLoadoutRequestResult = Object1PublicVo12;
 using AppControllers;
@@ -52,7 +51,6 @@ using HoloNetwork.NetworkObjects;
 using Il2CppInterop.Runtime;
 using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using Ui.Screens.CustomGame;
-using UnityEngine;
 
 namespace SNTools.Game;
 
@@ -61,7 +59,11 @@ internal static class DeobfuscatedExtensions
     public static void SendMessage(this HoloNetObject obj, HoloNetObjectMessage message, MessageTarget target = MessageTarget.All, bool reliable = true)
     {
         message.field_Public_ValueTypePublicSealedObauUIobBoObBoObBoUnique_0 = obj.oid;
+#if STEAM
         ObjectPublicOb8423Ob617057203317Unique.prop_ObjectPublicOb8423Ob617057203317Unique_0.field_Public_ObjectPublicBoLi1ObHaTy1ObUnique_0.Method_Public_Void_ObjectPublicAbstractDoBoObBoSiObBoObBoObUnique_EnumPublicSealedva5v1_Boolean_0(message, (OriginalMessageTarget)target, reliable);
+#elif GDK
+        ObjectPublicOb8423Ob617057203317Unique.prop_ObjectPublicOb8423Ob617057203317Unique_0.field_Public_ObjectPublicBoLi1ObHaTy1ObUnique_0.Method_Public_Void_ObjectPublicAbstractDoBoObBoSiObBoObBoObUnique_EnumPublicSealedva5v1_Boolean_PDM_0(message, (OriginalMessageTarget)target, reliable);
+#endif
     }
 
     public static void SetResultReceived<T>(this T requestResult, Il2CppSystem.Action<T> callback) where T : ObjectPublicBoObStAc1ObBoUnique<T>
@@ -78,9 +80,11 @@ internal static class DeobfuscatedExtensions
     }
 
     public static Loadout Unbox(this LoadoutSerializer serializer)
-    {
-        return serializer.Method_Public_ObjectPublicAcLiAc1ObObObUnique_PDM_0();
-    }
+#if STEAM
+        => serializer.Method_Public_ObjectPublicAcLiAc1ObObObUnique_PDM_0();
+#elif GDK
+        => serializer.Method_Public_ObjectPublicAcLiAc1ObObObUnique_0();
+#endif
 
     public static LoadoutSerializer Box(this Loadout loadout)
     {
@@ -175,12 +179,16 @@ internal static class DeobfuscatedExtensions
         player.prop_HoloNetObject_0.SendMessage(HoloNetMessages.CreatePlayerDeactiveBuffMessage(buff));
     }
 
-    public static HoloNetPlayer GetHoloNetPlayer(this LobbyPlayer lobbyPlayer)
-        => lobbyPlayer.prop_HoloNetObject_0.prop_ObjectPublicAbstractISerializableInObBoLiBoOb1BoObBoUnique_0;
+    public static PhotonHoloNetPlayer GetHoloNetPlayer(this LobbyPlayer lobbyPlayer)
+        => lobbyPlayer.prop_HoloNetObject_0.prop_ObjectPublicAbstractISerializableInObBoLiBoOb1BoObBoUnique_0.Cast<PhotonHoloNetPlayer>();
 
     public static void RefreshName(this LobbyCharacter character)
     {
+#if STEAM
         character.Method_Public_Void_PDM_4();
+#elif GDK
+        character.Method_Public_Void_PDM_1();
+#endif
     }
 
     public static bool IsLocal(this LobbyPlayer player)
@@ -188,10 +196,10 @@ internal static class DeobfuscatedExtensions
         return player.prop_HoloNetObject_0.IsLocal;
     }
 
-    public static string GetEmotionID(this LobbyPlayerDoEmotionMessage message)
-    {
-        return message.field_Public_String_0;
-    }
+    //public static string GetEmotionID(this LobbyPlayerDoEmotionMessage message)
+    //{
+    //    return message.field_Public_String_0;
+    //}
 
     public static HoloNetRoom ConvertRoomToHoloNet(this PhotonNetworkProvider provider, PhotonRoomInfo photonRoom)
         => provider.Method_Private_ObjectPublicStObInObBoBoInObBoObUnique_ObjectPublicBoHaInStInBoStHaInBoUnique_0(photonRoom);
@@ -203,13 +211,38 @@ internal static class DeobfuscatedExtensions
         => player.prop_Boolean_1;
 
     public static bool SetMasterClient(this PhotonRoom room, PhotonPlayer player)
+#if STEAM
         => room.Method_Public_Boolean_ObjectPublicObInBoStBoHaStObInHaUnique_PDM_2(player);
+#elif GDK
+        => room.Method_Public_Boolean_ObjectPublicObInBoStBoHaStObInHaUnique_PDM_0(player);
+#endif
 
-    public static bool SetMasterClient(this HoloNetPlayer player)
+    public static bool SetMasterClient(this PhotonHoloNetPlayer player)
     {
         var room = PhotonNetworkAPI.GetCurrentRoom();
-        return room != null && room.SetMasterClient(player.Cast<PhotonHoloNetPlayer>().prop_ObjectPublicObInBoStBoHaStObInHaUnique_0);
+        return room != null && room.SetMasterClient(player.prop_ObjectPublicObInBoStBoHaStObInHaUnique_0);
     }
+
+    public static string GetId(this PhotonRoomInfo room)
+        => room.prop_String_0;
+
+    public static int GetPlayerCount(this PhotonRoomInfo room)
+        => room.prop_Int32_1;
+
+    public static void OnNameChanged(this PlayerInfo info, Action<string> nameChanged)
+        => info.field_Public_Action_1_String_0 += nameChanged;
+
+    public static PhotonPlayer GetPhotonPlayer(this PhotonHoloNetPlayer player)
+        => player.prop_ObjectPublicObInBoStBoHaStObInHaUnique_0;
+
+    public static string GetId(this PhotonPlayer player)
+        => player.prop_String_1;
+
+    public static string GetNickName(this PhotonPlayer player)
+        => player.prop_String_0;
+
+    public static void SetNickName(this PhotonPlayer player, string value)
+        => player.prop_String_0 = value;
 }
 
 internal static class DeobfuscatedTypes
@@ -222,6 +255,8 @@ internal static class DeobfuscatedTypes
 
     public static class PhotonNetworkAPI
     {
+        public static PhotonPlayer? LocalPlayer => PhotonNetwork.prop_ObjectPublicObInBoStBoHaStObInHaUnique_0;
+
         public static PhotonRoom? GetCurrentRoom()
             => PhotonNetwork.prop_Object1PublicObBoDi2InStObBoInDiUnique_0;
 
@@ -287,7 +322,7 @@ internal static class DeobfuscatedTypes
 
     public static class RifleInventoryItemAPI
     {
-        public const string ShootRifleMethod = nameof(RifleInventoryItem.Method_Protected_Void_Object2PublicVeObVeVoObVeObVeObVe2_PDM_2);
+        //public const string ShootRifleMethod = nameof(RifleInventoryItem.Method_Protected_Void_Object2PublicVeObVeVoObVeObVeObVe2_PDM_2);
         //public const string PickUpRifleMethod = nameof(RifleInventoryItem.Method_Public_Virtual_Final_New_Void_Action_0);
     }
 
@@ -300,8 +335,8 @@ internal static class DeobfuscatedTypes
     public static class LobbyPlayerAPI
     {
         public const string UpdatePlayerInfoMethod = nameof(LobbyPlayer.Method_Private_Void_ObjectPublicObInObBoPlObBoAc1StUnique_0);
-        public const string OnKickMessageMethod = nameof(LobbyPlayer.Method_Public_Void_Object2PublicObVoObObObObObObObOb0_PDM_0);
-        public const string OnEmotionMessageMethod = nameof(LobbyPlayer.Method_Private_Void_Object2PublicStObVoStObStObStObSt0_PDM_0);
+        //public const string OnKickMessageMethod = nameof(LobbyPlayer.Method_Public_Void_Object2PublicObVoObObObObObObObOb0_PDM_0);
+        //public const string OnEmotionMessageMethod = nameof(LobbyPlayer.Method_Private_Void_Object2PublicStObVoStObStObStObSt0_PDM_0);
     }
 
     public static class GameContextAPI
@@ -318,15 +353,20 @@ internal static class DeobfuscatedTypes
             => AppController.prop_AppController_0.field_Public_ObjectPublicBoObBoAc2BoPlObStBoUnique_0.Method_Public_String_0();
     }
 
+    public static class PlayerInfoAPI
+    {
+        public const string UpdateNameMethod = nameof(PlayerInfo.Method_Public_Void_String_0);
+    }
+
     public static class HoloNetMessages
     {
-        public static EndMatchMessage CreateEndMatchMessage(EndingType type)
-        {
-            return new EndMatchMessage()
-            {
-                field_Public_EnumPublicSealedvaALBATIQU5vUnique_0 = type
-            };
-        }
+        //public static EndMatchMessage CreateEndMatchMessage(EndingType type)
+        //{
+        //    return new EndMatchMessage()
+        //    {
+        //        field_Public_EnumPublicSealedvaALBATIQU5vUnique_0 = type
+        //    };
+        //}
 
         public static PlayerApplyBuffMessage CreatePlayerApplyBuffMessage(PlayerBuff buff)
         {
@@ -344,26 +384,26 @@ internal static class DeobfuscatedTypes
             };
         }
 
-        public static TeleportPlayerMessage CreateTeleportPlayerMessage(Vector3 position)
-        {
-            return new TeleportPlayerMessage()
-            {
-                field_Public_Vector3_0 = position
-            };
-        }
+        //public static TeleportPlayerMessage CreateTeleportPlayerMessage(Vector3 position)
+        //{
+        //    return new TeleportPlayerMessage()
+        //    {
+        //        field_Public_Vector3_0 = position
+        //    };
+        //}
 
         //public static LobbyPlayerSyncInfoMessage CreateLobbyPlayerSyncInfoMessage(PlayerInfo playerInfo, ActorInfo childInfo, ActorInfo neighborInfo)
         //{
         //    return LobbyPlayerSyncInfoMessage.Method_Public_Static_Object2PublicObBoObObObObUnique_ObjectPublicObBoObAcBo1ObStAc1Unique_ObjectPublicISerializableObLoObAcLoUnique_ObjectPublicISerializableObLoObAcLoUnique_ObjectPublicISerializableObLoObAcLoUnique_EnumPublicSealedvaWISPSUAU5vUnique_Boolean_0(playerInfo, childInfo, neighborInfo);
         //}
 
-        public static LobbyPlayerDoEmotionMessage CreateLobbyPlayerDoEmotionMessage(string emotionID)
-        {
-            return new LobbyPlayerDoEmotionMessage()
-            {
-                field_Public_String_0 = emotionID
-            };
-        }
+        //public static LobbyPlayerDoEmotionMessage CreateLobbyPlayerDoEmotionMessage(string emotionID)
+        //{
+        //    return new LobbyPlayerDoEmotionMessage()
+        //    {
+        //        field_Public_String_0 = emotionID
+        //    };
+        //}
     }
 
     public enum MessageTarget

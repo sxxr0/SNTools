@@ -17,15 +17,21 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
-
-      - name: Restore Dependencies
-        run: dotnet restore
         
-      - name: Build
-        run: dotnet publish --no-restore -p:CI="${{ github.run_number }}"
+      - name: Build for Steam Version
+        run: dotnet publish -c Steam -p:CI="${{ github.run_number }}"
 
-      - name: Upload Artifact
+      - name: Upload Artifact for Steam Version
         uses: actions/upload-artifact@v4
         with:
-          name: SNTools
-          path: bin/
+          name: SNTools-Steam
+          path: "bin/SNTools Steam.exe"
+        
+      - name: Build for GDK Version
+        run: dotnet publish -c GDK -p:CI="${{ github.run_number }}"
+
+      - name: Upload Artifact for GDK Version
+        uses: actions/upload-artifact@v4
+        with:
+          name: SNTools-GDK
+          path: "bin/SNTools GDK.exe"

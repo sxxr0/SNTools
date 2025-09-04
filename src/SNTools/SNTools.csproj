@@ -17,14 +17,23 @@
         <PublishDir>$(SolutionDir)bin</PublishDir>
         <DebugType>embedded</DebugType>
         <UseWPF>true</UseWPF>
+        <Configurations>Steam;GDK</Configurations>
+        <PublishName>SNTools $(Configuration)</PublishName>
     </PropertyGroup>
+
+    <Target Name="RenamePublishedExe" AfterTargets="Publish" Condition="'$(PublishName)' != ''">
+        <ItemGroup>
+            <_PublishedExe Include="$(PublishDir)$(TargetName).exe" />
+        </ItemGroup>
+        <Move SourceFiles="@(_PublishedExe)" DestinationFiles="$(PublishDir)$(PublishName).exe" />
+    </Target>
     
     <ItemGroup>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="Gameloop.Vdf" Version="0.6.2" />
         <PackageReference Include="HarmonyX" Version="2.10.2" />
-        <PackageReference Include="Il2CppInterop.HarmonySupport" Version="1.5.0-ci.641" />
-        <PackageReference Include="Il2CppInterop.Runtime" Version="1.5.0-ci.641" />
+        <PackageReference Include="Il2CppInterop.HarmonySupport" Version="1.5.1" />
+        <PackageReference Include="Il2CppInterop.Runtime" Version="1.5.1" />
         <PackageReference Include="MonoMod.RuntimeDetour" Version="22.7.31.1" />
         <PackageReference Include="Samboy063.Tomlet" Version="6.1.0" />
         <PackageReference Include="Semver" Version="3.0.0" />
@@ -39,7 +48,7 @@
     </ItemGroup>
     
     <ItemGroup>
-        <Reference Include="Libs\Il2CppInteropAssemblies\*.dll" />
+        <Reference Include="Libs\Il2CppInteropAssemblies\$(Configuration)\*.dll" />
         <Reference Include="Libs\*.dll" />
     </ItemGroup>
 

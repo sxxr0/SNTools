@@ -14,7 +14,7 @@
         ResizeMode="NoResize"
         AllowsTransparency="True"
         Background="Transparent"
-        ShowActivated="False">
+        ShowActivated="False" ShowInTaskbar="False">
     <Grid>
         <Canvas>
             <windows:MainWindow x:Name="MainWindow"/>

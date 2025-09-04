@@ -1,8 +1,17 @@
-﻿namespace SNTools.Game;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-public class RoomWrapper(HoloNetRoom holoNetRoom)
+namespace SNTools.Game;
+
+public partial class RoomWrapper(HoloNetRoom holoNetRoom) : ObservableObject
 {
-    public HoloNetRoom HoloNetRoom { get; set; } = holoNetRoom;
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Name))]
+    [NotifyPropertyChangedFor(nameof(Type))]
+    [NotifyPropertyChangedFor(nameof(Locale))]
+    [NotifyPropertyChangedFor(nameof(Password))]
+    [NotifyPropertyChangedFor(nameof(PlayerCount))]
+    [NotifyPropertyChangedFor(nameof(PasswordWithIcon))]
+    private HoloNetRoom _holoNetRoom = holoNetRoom;
 
     public string Id => HoloNetRoom.field_Public_String_0;
 

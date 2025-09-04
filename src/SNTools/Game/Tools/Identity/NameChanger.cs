@@ -11,7 +11,8 @@ public class NameChanger() : PropertyOverrideTool<string>(GameMode.MENU)
 
     protected override void SetValue(string value)
     {
-        GameContextAPI.GetLocalPlayerInfo().SetName(value ?? string.Empty);
+        PhotonNetworkAPI.LocalPlayer?.SetNickName(value);
+        GameContextAPI.GetLocalPlayerInfo().SetName(value);
         MenuScenery.prop_MenuScenery_0.lobbyPlayerCharacter.RefreshName();
     }
 

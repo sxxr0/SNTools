@@ -22,7 +22,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border Background="#223" CornerRadius="15">
+        <Border Background="#A223" CornerRadius="15" Padding="5">
             <ListBox Height="200" Grid.RowSpan="2" ItemsSource="{Binding LobbyPlayerButtonModels}"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  SelectedItem="{Binding SelectedPlayer}">
@@ -33,7 +33,7 @@
                         <Setter Property="BorderThickness" Value="2"/>
                         <Setter Property="Cursor" Value="Hand"/>
                         <Setter Property="FontSize" Value="15"/>
-                        <Setter Property="Margin" Value="10"/>
+                        <Setter Property="Margin" Value="5"/>
                         <Setter Property="IsEnabled" Value="{Binding Enabled}"/>
                         <Setter Property="Template">
                             <Setter.Value>
@@ -42,7 +42,7 @@
                                         <Grid Margin="5">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition/>
-                                                <RowDefinition/>
+                                                <RowDefinition Height="auto"/>
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
                                             <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
@@ -76,8 +76,34 @@
                                                     <TextBlock FontSize="10">Local</TextBlock>
                                                 </Border>
                                             </StackPanel>
-                                            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding DisplayName}" FontWeight="SemiBold" Grid.Row="1" FontSize="12" TextAlignment="Center"/>
-                                            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding LobbyPlayer.UnreliableId}" Grid.Row="2" FontSize="10" TextAlignment="Center"/>
+                                            <TextBlock TextTrimming="CharacterEllipsis" FontWeight="SemiBold" Grid.Row="1" FontSize="12" TextAlignment="Center">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Text" Value="{Binding LobbyPlayer.DisplayName}"/>
+                                                        <Setter Property="Foreground" Value="White"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Enabled}" Value="False">
+                                                                <Setter Property="Text" Value="Empty"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding LobbyPlayer.HasFakeName}" Value="True">
+                                                                <Setter Property="Foreground" Value="Red"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                            <TextBlock TextTrimming="CharacterEllipsis" Text="{Binding LobbyPlayer.UnreliableId}" Grid.Row="2" FontSize="10" TextAlignment="Center">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Foreground" Value="White"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding LobbyPlayer.HasFakeId}" Value="True">
+                                                                <Setter Property="Foreground" Value="Red"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
                                         </Grid>
                                     </Border>
                                     <ControlTemplate.Triggers>
@@ -85,12 +111,12 @@
                                             <Setter TargetName="border" Property="Background" Value="#1000"/>
                                         </Trigger>
                                         <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="border" Property="Background" Value="#3AAF"/>
+                                            <Setter TargetName="border" Property="Background" Value="#2AAF"/>
                                             <Setter Property="BorderThickness" Value="3"/>
                                         </Trigger>
                                         <Trigger Property="IsEnabled" Value="False">
                                             <Setter Property="Background" Value="#7111"/>
-                                            <Setter Property="Opacity" Value="0.7"/>
+                                            <Setter Property="Opacity" Value="0.5"/>
                                             <Setter Property="BorderThickness" Value="0"/>
                                             <Setter Property="IsSelected" Value="False"/>
                                         </Trigger>
@@ -118,7 +144,7 @@
                     </Style.Triggers>
                 </Style>
             </StackPanel.Style>
-            <Button Height="40" Command="{Binding MakeMasterClientCommand}">Make Master Client</Button>
+            <Button Height="40" Command="{Binding MakeMasterClientCommand}">Set Master Client</Button>
         </StackPanel>
     </Grid>
 </UserControl>

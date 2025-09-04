@@ -37,6 +37,14 @@ internal static class LobbyPlayerManager
         }
     }
 
+    [HarmonyPatch(typeof(PlayerInfo), PlayerInfoAPI.UpdateNameMethod)]
+    [HarmonyPostfix]
+    private static void PlayerInfoUpdateNamePatch(PlayerInfo __instance)
+    {
+        var player = Players.FirstOrDefault(x => x.PlayerInfo == __instance);
+        player?.NotifyNameChanged();
+    }
+
     [HarmonyPatch(typeof(PhotonNetworkProvider), PhotonNetworkProviderAPI.OnMasterClientSwitchedMethod)]
     [HarmonyPostfix]
     private static void OnMasterClientSwitchedPatch()

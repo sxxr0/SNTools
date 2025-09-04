@@ -25,6 +25,12 @@ internal static unsafe class ExeSpoofer
         _ldrGetDllFullNamePatch = Dobby.CreatePatch<DLdrGetDllFullName>("ntdll", "LdrGetDllFullName", OnLdrGetDllFullName);
     }
 
+    public static void Dispose()
+    {
+        _ldrGetDllFullNamePatch?.Destroy();
+        _ldrGetDllFullNamePatch = null;
+    }
+
     private static uint OnLdrGetDllFullName(nint hModule, UNICODE_STRING* lpFilename)
     {
         if (hModule == 0 || hModule == _mainModuleHandle)

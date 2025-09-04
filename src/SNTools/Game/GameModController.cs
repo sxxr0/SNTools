@@ -31,15 +31,10 @@ public static class GameModController
 
         Harmony.PatchAll(typeof(GameModController).Assembly);
 
-        Application.quitting += (Action)OnQuit;
+        Application.quitting += (Action)Program.Quit;
 
         Assembly.Load("UnityEngine.AssetBundleModule");
         ExplorerStandalone.CreateInstance(OnUnityExplorerLog);
-    }
-
-    private static void OnQuit()
-    {
-        ToolsConfig.Save();
     }
 
     [HarmonyPatch(typeof(AppController), "Start")]
@@ -54,9 +49,6 @@ public static class GameModController
     private static void OnUpdate()
     {
         ToolsUIController.Update();
-
-        if (Input.GetKeyDown(KeyCode.Backslash))
-            Program.MainLogger.LogDebug(PhotonNetworkAPI.GetCustomRoomList().ToString());
     }
 
     [HarmonyPatch(typeof(GameModeController), GameModeControllerAPI.SetGameModeMethod)]
