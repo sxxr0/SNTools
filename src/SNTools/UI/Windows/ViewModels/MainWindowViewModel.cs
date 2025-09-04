@@ -22,6 +22,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
 
     public ObservableCollection<Category> ActiveCategories { get; } = [];
 
+    public string AppVersion => $"v{Program.Version}";
+
     public MainWindowViewModel()
     {
         GameModController.GameModeChanged += OnGameModeChanged;

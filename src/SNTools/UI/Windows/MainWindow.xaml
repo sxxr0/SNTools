@@ -42,8 +42,12 @@
                 <ColumnDefinition Width="200"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ListBox ItemsSource="{Binding ActiveCategories}" SelectedItem="{Binding CurrentCategory}" x:Name="PageList" DisplayMemberPath="Name" Background="#2000" SelectedIndex="0"/>
+            <Border Background="#2000" CornerRadius="0 0 0 15">
+                <ListBox ItemsSource="{Binding ActiveCategories}" SelectedItem="{Binding CurrentCategory}" DisplayMemberPath="Name" x:Name="PageList" SelectedIndex="0"/>
+            </Border>
             <ContentControl Grid.Column="1" Content="{Binding CurrentCategory.ViewModel}" Margin="20"/>
+
+            <TextBlock Text="{Binding AppVersion}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="14" FontSize="10" Opacity="0.2" FontWeight="SemiBold"/>
         </Grid>
     </custom:SubWindow>
 </UserControl>
