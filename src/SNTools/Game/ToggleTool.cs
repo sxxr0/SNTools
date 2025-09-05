@@ -10,6 +10,8 @@ public abstract partial class ToggleTool : Tool
     [ObservableProperty]
     private bool _enabled;
 
+    public bool Active => Enabled && !_blocked;
+
     protected ToggleTool(params GameMode[] supportedGameModes) : base(supportedGameModes)
     {
         _blocked = !SupportedGameModes.Contains(GameModController.CurrentGameMode);

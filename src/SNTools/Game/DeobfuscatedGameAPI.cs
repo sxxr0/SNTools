@@ -182,6 +182,9 @@ internal static class DeobfuscatedExtensions
     public static PhotonHoloNetPlayer GetHoloNetPlayer(this LobbyPlayer lobbyPlayer)
         => lobbyPlayer.prop_HoloNetObject_0.prop_ObjectPublicAbstractISerializableInObBoLiBoOb1BoObBoUnique_0.Cast<PhotonHoloNetPlayer>();
 
+    public static PhotonHoloNetPlayer GetHoloNetPlayer(this Player player)
+        => player.prop_HoloNetObject_0.prop_ObjectPublicAbstractISerializableInObBoLiBoOb1BoObBoUnique_0.Cast<PhotonHoloNetPlayer>();
+
     public static void RefreshName(this LobbyCharacter character)
     {
 #if STEAM
@@ -314,10 +317,7 @@ internal static class DeobfuscatedTypes
             return PlayerController.prop_Player_0;
         }
 
-        public static Il2CppSystem.Collections.Generic.List<Player> GetAllPlayers()
-        {
-            return PlayerController.prop_List_1_Player_0;
-        }
+        public static Il2CppSystem.Collections.Generic.List<Player>? Players => PlayerController.prop_List_1_Player_0;
     }
 
     public static class RifleInventoryItemAPI

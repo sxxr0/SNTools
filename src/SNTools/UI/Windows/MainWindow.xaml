@@ -31,6 +31,9 @@
             <DataTemplate DataType="{x:Type pagesvm:LobbiesPageViewModel}">
                 <pages:LobbiesPage/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type pagesvm:VisualPageViewModel}">
+                <pages:VisualPage/>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>

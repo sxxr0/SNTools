@@ -17,7 +17,8 @@ public partial class MainWindowViewModel : ObservableObject, IDisposable
         new("Identity", new IdentityPageViewModel(), GameMode.MENU),
         new("Lobby Players", new LobbyPlayersPageViewModel(), GameMode.LOBBY),
         new("Skins", new SkinsPageViewModel(), GameMode.MENU, GameMode.LOBBY),
-        new("Lobbies", new LobbiesPageViewModel(), GameMode.MENU)
+        new("Lobbies", new LobbiesPageViewModel(), GameMode.MENU),
+        new("Visual", new VisualPageViewModel(), GameMode.GAMEPLAY)
     }.AsReadOnly();
 
     public ObservableCollection<Category> ActiveCategories { get; } = [];

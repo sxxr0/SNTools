@@ -16,6 +16,7 @@
         Background="Transparent"
         ShowActivated="False" ShowInTaskbar="False">
     <Grid>
+        <custom:ToolsCanvas/>
         <Canvas>
             <windows:MainWindow x:Name="MainWindow"/>
         </Canvas>

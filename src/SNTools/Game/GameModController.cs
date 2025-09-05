@@ -19,6 +19,7 @@ public static class GameModController
 
     public static event Action<GameMode>? GameModeChanged;
     public static event Action<GameMode>? GameModeChanging;
+    public static event Action? Update;
 
     public static void Init()
     {
@@ -49,6 +50,8 @@ public static class GameModController
     private static void OnUpdate()
     {
         ToolsUIController.Update();
+
+        Update?.Invoke();
     }
 
     [HarmonyPatch(typeof(GameModeController), GameModeControllerAPI.SetGameModeMethod)]
